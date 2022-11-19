@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
@@ -6,7 +6,7 @@ from .models import Userprofile
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from store.forms import ProductForm
-from store.models import Product, Category
+from store.models import Product, Category, Order, OrderItem
 from django.utils.text import slugify
 from django.contrib import messages
 
@@ -31,17 +31,21 @@ def user_detail(request, pk):
 @login_required
 def my_store(request):
     products = request.user.products.exclude(status=Product.DELETED)
-
+    order_items = OrderItem.objects.filter(product__user=request.user)[0:20]
     return render(request, 'userprofile/my_store.html', {
-        'products': products
+        'products': products,
+        'order_items': order_items,
+    })
+
+@login_required
+def my_store_order_detail(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    return render(request, 'userprofile/my_store_order_detail.html', {
+        'order': order,
     })
 
 @login_required
 def myaccount(request):
-    # if request.user.is_authenticated:
-    #     return render(request, 'userprofile/myaccount.html')   
-    # else:
-    #     return redirect('login') 
     return render(request, 'userprofile/myaccount.html')
 
 @login_required

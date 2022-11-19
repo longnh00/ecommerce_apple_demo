@@ -42,7 +42,7 @@ def cart_view(request):
 @login_required
 def checkout(request):
     cart = Cart(request)
-    if request.method == "POST":
+    if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
             total_price = 0
@@ -58,6 +58,7 @@ def checkout(request):
                 quantity = int(item['quantity'])
                 price = product.price * quantity
                 item = OrderItem.objects.create(order=order, product=product, price=price, quantity=quantity)
+            cart.clear()
             return redirect('myaccount')
     else:
         form = OrderForm()
