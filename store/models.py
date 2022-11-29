@@ -75,6 +75,12 @@ class Product(models.Model):
         return thumbnail
 
 class Order(models.Model):
+    DONE = 'Done'
+    PROCESSING = 'Processing...'
+    STATUS_CHOICES = (
+        (DONE, 'Done'),
+        (PROCESSING, 'Processing')
+    )
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
@@ -82,8 +88,13 @@ class Order(models.Model):
     mobile = models.IntegerField()
     paid_amount = models.IntegerField(blank=True, null=True)
     is_paid = models.BooleanField(default=False)
+    payment_intent = models.CharField(max_length=255)
     created_by = models.ForeignKey(User, related_name='orders', on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=PROCESSING)
+
+    def get_display_price(self):
+        return self.paid_amount / 100
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)

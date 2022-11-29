@@ -32,7 +32,7 @@ CART_SESSION_ID = 'cart'
 SESSION_COOKIE_AGE = 86400
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'myaccount'
+LOGIN_REDIRECT_URL = 'homepage'
 LOGOUT_REDIRECT_URL = 'homepage'
 
 # Application definition
@@ -61,6 +61,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ecommerce_apple.urls'
+
+WEBSITE_URL = 'http://127.0.0.1:8000/'
+
+STRIPE_PUB_KEY = 'pk_test_51M5hT1FAx0NkScFENq3NBInCCh0DJBtl7wgWqPaeT5RxyQEzKj7js6JG2vUkLdfGIKo1nnn7l5HylQnV4kWDYiEf00szuaAPD6'
+STRIPE_SECRET_KEY = 'sk_test_51M5hT1FAx0NkScFEu2ni2eg6iEXSkcqewOgwbigl1S9NXeuPTYQvPvicRlCm07cMQqjORT1jnAwgRfW2Aq2Fr8hM00WEg0V6Uy'
 
 TEMPLATES = [
     {

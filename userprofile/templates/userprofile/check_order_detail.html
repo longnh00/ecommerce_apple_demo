@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block title %}Check order detail{% endblock %}
+{% block content %}
+    <h1 class="text-3xl">Check order detail</h1>
+    <table class="mt-4 table-auto border border-collapse rounded-md">
+        <tr class="border rounded-md">
+            <th class="px-3 border-2">ID</th>
+            <th class="px-3 border-2">Name</th>
+            <th class="px-3 border-2">Address</th>
+            <th class="px-3 border-2">Mobile</th>
+            <th class="px-3 border-2">Paid amount</th>
+            <th class="px-3 border-2">Created by</th>
+            <th class="px-3 border-2">Created at</th>
+            <th class="px-3 border-2">Status</th>
+        </tr>
+        <tr class="border rounded-md">
+            <td class="px-3 border-2">{{ order.id }}</td>
+            <td class="px-3 border-2">{{ order.first_name }} {{ order.last_name }}</td>
+            <td class="px-3 border-2">{{ order.address }} {{ order.city }}</td>
+            <td class="px-3 border-2">{{ order.mobile }}</td>
+            <td class="px-3 border-2">${{ order.get_display_price }}</td>
+            <td class="px-3 border-2">{{ order.created_by }}</td>
+            <td class="px-3 border-2">{{ order.created_at }}</td>
+            <td class="px-3 border-2">{{ order.status }}</td>
+        </tr>
+    </table>
+{% endblock %}

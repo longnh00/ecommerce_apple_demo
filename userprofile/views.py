@@ -30,6 +30,8 @@ def user_detail(request, pk):
 
 @login_required
 def my_store(request):
+    if request.user.username != 'admin':
+        return redirect('homepage')
     products = request.user.products.exclude(status=Product.DELETED)
     order_items = OrderItem.objects.filter(product__user=request.user)[0:20]
     return render(request, 'userprofile/my_store.html', {
@@ -39,6 +41,8 @@ def my_store(request):
 
 @login_required
 def my_store_order_detail(request, pk):
+    if request.user.username != 'admin':
+        return redirect('homepage')
     order = get_object_or_404(Order, pk=pk)
     return render(request, 'userprofile/my_store_order_detail.html', {
         'order': order,
@@ -50,6 +54,9 @@ def myaccount(request):
 
 @login_required
 def add_product(request):
+    if request.user.username != 'admin':
+        return redirect('homepage')
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
 
@@ -74,6 +81,9 @@ def add_product(request):
 
 @login_required
 def edit_product(request, pk):
+    if request.user.username != 'admin':
+        return redirect('homepage')
+
     product = Product.objects.filter(user=request.user).get(pk=pk)
 
     if request.method == 'POST':
@@ -96,6 +106,9 @@ def edit_product(request, pk):
 
 @login_required
 def delete_product(request, pk):
+    if request.user.username != 'admin':
+        return redirect('homepage')
+        
     product = Product.objects.filter(user=request.user).get(pk=pk)
     product.status = Product.DELETED
     product.save()
@@ -103,6 +116,24 @@ def delete_product(request, pk):
     messages.success(request, 'The product was deleted!')
 
     return redirect('my_store')
+
+@login_required
+def check_order(request):
+    if request.user.username != 'admin':
+        return redirect('homepage')
+    orders = Order.objects.all().order_by('id')
+    return render(request, 'userprofile/check_order.html', {
+        'orders': orders,
+    })
+
+@login_required
+def check_order_detail(request, pk):
+    if request.user.username != 'admin':
+        return redirect('homepage')
+    order = Order.objects.filter(created_by=request.user).get(pk=pk)
+    return render(request, 'userprofile/check_order_detail.html', {
+        'order': order,
+    })
 
 def signup(request):
     if request.method == 'POST':

@@ -38,8 +38,11 @@
             </div>
         </div>
     {% endfor %}
+    
     <hr />
-    <a class="mt-4 inline-block py-4 px-8 text-white bg-teal-600 font-bold rounded-md" href="{% url 'add_product' %}">Add product</a>
+    <a class="my-4 inline-block py-4 px-8 text-white bg-teal-600 font-bold rounded-md" href="{% url 'check_order' %}">Check order</a>
+    <a class="my-4 inline-block py-4 px-8 text-white bg-teal-600 font-bold rounded-md" href="{% url 'add_product' %}">Add product</a>
+    <hr />
     <h2 class="mt-4 text-xl">My products</h2>
     {% if products %}
         <div class="flex flex-wrap mx-4">
