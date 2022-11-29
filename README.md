@@ -7,6 +7,7 @@ To run this process, you need some package to run it:
 - mysql:8.0
 - mysqlcient (install from pip)
 - Pillow (install from pip)
+- stripe
 
 After you installed all package above, you need to pull this repository to your local machine, or you can download
 file zip.
