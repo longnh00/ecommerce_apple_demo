@@ -14,3 +14,6 @@ file zip.
 Next step, you open your terminal at folder project and run this command line
 	python3 manage.py runserver 
 
+Account admnin:
+	- username: admin
+	- password: admin
